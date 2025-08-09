@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-<<<<<<< HEAD
-=======
 import 'package:user_repository/user_repository.dart';
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
+import 'package:khodaniya_jewellers/screens/screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,17 +12,11 @@ void main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
-      home: SplashView()
-=======
-      home: RegisterView()
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
+      home: LoginScreen()
     ),
   );
 }
 
-<<<<<<< HEAD
-=======
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
@@ -105,4 +97,3 @@ class _RegisterViewState extends State<RegisterView> {
 }
 
 
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)

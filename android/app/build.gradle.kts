@@ -11,11 +11,8 @@ plugins {
 android {
     namespace = "store.jewellery.khodaniya_jewellers"
     compileSdk = flutter.compileSdkVersion
-<<<<<<< HEAD
     ndkVersion = flutter.ndkVersion
-=======
     ndkVersion = "27.0.12077973"
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -31,11 +28,7 @@ android {
         applicationId = "store.jewellery.khodaniya_jewellers"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-<<<<<<< HEAD
-        minSdk = flutter.minSdkVersion
-=======
         minSdk = 23 
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

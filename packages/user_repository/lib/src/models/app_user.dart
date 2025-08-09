@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import '../constants/constants.dart';
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
 
 class AppUser {
   
@@ -22,11 +19,8 @@ class AppUser {
     required this.userId,
   });  
 
-<<<<<<< HEAD
 
-=======
   /// Factory constructor to create an AppUser instance from a Firestore document
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
   factory AppUser.fromDocument(Map<String, dynamic> data) {
     return AppUser(
       email: data['email'] ?? 'not-found',
@@ -34,9 +28,6 @@ class AppUser {
       userId: data['userId'] ?? 'not-found',
     );
   }
-<<<<<<< HEAD
-=======
-
   /// Converts the AppUser instance to a map for Firestore storage
   Map<String, dynamic> toDocument() {
     return {
@@ -45,5 +36,4 @@ class AppUser {
       nameFieldText: name,
     };
   }
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
 }

@@ -37,11 +37,8 @@ dependencies:
   firebase_core: ^4.0.0
   firebase_auth: ^6.0.0
   rxdart: ^0.28.0
-<<<<<<< HEAD
-=======
   user_repository:
     path: packages/user_repository/
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
 
 dev_dependencies:
   flutter_test:
