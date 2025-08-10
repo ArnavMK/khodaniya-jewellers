@@ -37,13 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Center(
             child: Column(
               children: [
-                const SizedBox(height: 25),
+                const SizedBox(height: 35),
                 Image.asset(
                   "assets/images/Icon.png",
-                  width: 210,
-                  height: 210,
+                  width: 150,
+                  height: 150,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 50),
             
                 Text("Welcome back!", style: TextStyle(
                   fontFamily: 'Poppins',
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 ),
                 const SizedBox(height: 15),
-                LongButton(text: "Create Account", backgroundColor: Colors.transparent, borderColor: Colors.black, onTap: () {dev.log("User will be redirected to register page");})
+                LongButton(text: "Create Account", backgroundColor: Colors.transparent, borderColor: Color(0xFF64A0AD), onTap: () {dev.log("User will be redirected to register page");})
               ],
             ),
           ),

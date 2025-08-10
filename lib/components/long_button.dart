@@ -30,7 +30,7 @@ class LongButton extends StatelessWidget {
         child: Center(
           child: Text(
             text, 
-            style: TextStyle(color: backgroundColor == Colors.transparent ? Colors.black : Colors.white)
+            style: TextStyle(color: backgroundColor == Colors.transparent ? borderColor : Colors.white),
           )
         ) 
       ),
