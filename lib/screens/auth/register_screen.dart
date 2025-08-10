@@ -3,14 +3,14 @@ import 'package:khodaniya_jewellers/components/text_input.dart';
 import 'package:khodaniya_jewellers/components/long_button.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
   late final TextEditingController _emailController; 
   late final TextEditingController _passwordController; 
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 50),
             
-                Text("Welcome back!", style: TextStyle(
+                Text("Welcome!", style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -54,6 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text("To the official app for Khodaniya Jewellers", style: Theme.of(context).textTheme.bodySmall),
             
                 const SizedBox(height: 50),
+                MyTextInput(
+                  prefixIcon: Icon(Icons.manage_accounts_outlined), 
+                  hintString: "Username",
+                  obscureText: false,
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 10),
                 MyTextInput(
                   prefixIcon: Icon(Icons.email_outlined), 
                   hintString: "Email",
@@ -70,14 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 25),
                 LongButton(
-                  text: "Sign In", 
-                  onTap: _signIn,
+                  text: "Sign Up", 
+                  onTap: _signUp,
                   backgroundColor: Color(0xFF64A0AD),
                 ),
                 const SizedBox(height: 15),
                 LongButton(
-                  text: "Create account", 
-                  onTap: _switchToSignUpSCreen,
+                  text: "Already Have an Account? Sign In", 
+                  onTap: _switchToSignInSCreen,
                   borderColor: AppColors.primary,
                   backgroundColor: Colors.transparent,
                 ),
@@ -89,11 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
     ); 
   }
 
-  void _switchToSignUpSCreen() {
-    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.register, (route) => false);
+  void _switchToSignInSCreen() {
+    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
   }
 
-  void _signIn() {
+  void _signUp() {
     print("I will sign you in later aligator"); 
   }
 }

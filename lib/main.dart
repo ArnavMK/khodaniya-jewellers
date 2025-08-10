@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:khodaniya_jewellers/screens/auth/register_screen.dart';
+import 'package:khodaniya_jewellers/screens/landing/splash_screen.dart';
 import 'package:khodaniya_jewellers/screens/screens.dart';
+import 'package:khodaniya_jewellers/constants/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,92 +12,22 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Khodaniya Jwellers',
       theme: ThemeData(
         fontFamily: 'Poppins'
       ),
-      home: LoginScreen()
+      home: SplashScreen(),
+      routes: {
+        // AppRoutes.splash: (context) => const SplashScreen(),
+        AppRoutes.login: (context) => const LoginScreen(),
+        AppRoutes.register: (context) => const RegisterScreen(),
+        // AppRoutes.profile: (context) => const ProfileScreen(),
+        // AppRoutes.settings: (context) => const SettingsScreen(),
+        // AppRoutes.itemDetails: (context) => const ItemDetailsScreen(),
+      },
     ),
   );
-}
-
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
-
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
-
-  late final TextEditingController _passwordTextController;
-  late final TextEditingController _emailTextController;
-  late final TextEditingController _nameTextController;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordTextController = TextEditingController();
-    _emailTextController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _passwordTextController.dispose();
-    _emailTextController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register"),
-        backgroundColor: Colors.white,
-        elevation: 40, 
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _nameTextController,
-            enableSuggestions: true,
-            autocorrect: true,
-            decoration: const InputDecoration(hintText: "Nick name"),
-          ),
-          TextField(
-            controller: _emailTextController,
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: "Email")
-          ),
-          TextField(
-            controller: _passwordTextController,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(hintText: "Password"),
-          ),
-          TextButton(
-            onPressed: onRegisterButtonPressed, 
-            child: const Text("Register"),
-          ),
-          TextButton(
-            onPressed: () {}, 
-            child: const Text("Already registered? Login here!"),
-          ),
-        ],
-      )
-    );
-  }
-
-  void onRegisterButtonPressed() async {
-    await UserRepository.instance.createUser(
-      email: _emailTextController.text.trim(),
-      password: _passwordTextController.text.trim(),
-      name: _nameTextController.text.trim(), 
-    );
-  }
 }
 
 
