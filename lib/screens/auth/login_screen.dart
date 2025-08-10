@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khodaniya_jewellers/components/text_input.dart';
 import 'package:khodaniya_jewellers/components/long_button.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
+import 'package:user_repository/user_repository.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -94,7 +95,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _signIn() {
-    print("I will sign you in later aligator"); 
+    UserRepository.instance.loginUser(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+      name: "Test user name for now",
+    ).then((user) {
+      print("User logged in: ${user.email}");
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
+    }).catchError((error) {
+      print("Error logging in user: $error");
+    });
   }
 }
 

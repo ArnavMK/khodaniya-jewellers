@@ -12,6 +12,15 @@ class UserRepository {
     return _instance;
   }
 
+  bool isLoggedIn() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /// creats user with firebase auth and in firestore through go backend
   Future<AppUser> createUser ({
     required String email,
@@ -22,7 +31,6 @@ class UserRepository {
     try {
       final userCred = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       dev.log("User created with email: ${userCred.user?.email}", name: "UserRepository.createUser");
-      // TODO: Save user in firestore through go backend
       return AppUser(
         email: userCred.user?.email ?? 'not-found',
         name: name,

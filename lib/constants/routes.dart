@@ -1,6 +1,6 @@
 
 class AppRoutes {
-  static const String home = '/'; // browsing the catalog page
+  static const String home = '/home'; // browsing the catalog page
   static const String splash = '/splash'; // loading assets and checking for logged in user 
   static const String login = '/login'; // login page
   static const String register = '/register'; // registration page

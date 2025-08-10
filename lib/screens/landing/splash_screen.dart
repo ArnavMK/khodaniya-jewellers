@@ -14,12 +14,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.register);
-    });
-    
-     
-
+    if (UserRepository.instance.isLoggedIn()) {
+      print("User is logged in");
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      });
+    } 
+    else {
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.register);
+      });
+    }
   }
 
   @override

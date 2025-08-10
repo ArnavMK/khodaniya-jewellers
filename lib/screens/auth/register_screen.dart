@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khodaniya_jewellers/components/text_input.dart';
 import 'package:khodaniya_jewellers/components/long_button.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
+import 'package:user_repository/user_repository.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,12 +15,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   late final TextEditingController _emailController; 
   late final TextEditingController _passwordController; 
+  late final TextEditingController _nameController;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _nameController = TextEditingController();
   }
 
   @override
@@ -27,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _nameController.dispose();
   }
 
   @override
@@ -58,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.manage_accounts_outlined), 
                   hintString: "Username",
                   obscureText: false,
-                  controller: _emailController,
+                  controller: _nameController,
                 ),
                 const SizedBox(height: 10),
                 MyTextInput(
@@ -100,8 +104,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
   }
 
-  void _signUp() {
-    print("I will sign you in later aligator"); 
+  void _signUp() async {
+    try {
+      await UserRepository.instance.createUser(
+        email: _emailController.text.trim(), 
+        password: _passwordController.text.trim(),
+        name: _nameController.text.trim()
+      );
+    }
+    catch (error) {
+      print("Error creating user: $error");
+    }
   }
 }
 
