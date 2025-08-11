@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _signIn() {
-    UserRepository.instance.loginUser(
+    UserRepository.instance.logIn(
       email: _emailController.text.trim(),
       password: _passwordController.text.trim(),
       name: "Test user name for now",

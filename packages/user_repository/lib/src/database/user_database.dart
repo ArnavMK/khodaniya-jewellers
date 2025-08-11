@@ -44,7 +44,7 @@ class UserRepository {
   }
 
   /// log in with firebase auth through client
-  Future<AppUser> loginUser({
+  Future<AppUser> logIn({
     required String email,
     required String password,
     required String name,
@@ -62,7 +62,7 @@ class UserRepository {
       dev.log("Error logging in user: $e", name: "UserRepository.loginUser");
       rethrow; 
     }
-  }  
+  }
 
   /// log out with firebase auth through client
   Future<void> logOut() async {

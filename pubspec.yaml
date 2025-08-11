@@ -39,8 +39,12 @@ dependencies:
   rxdart: ^0.28.0
   user_repository:
     path: packages/user_repository/
+  stock_repository:
+    path: packages/stock_repository/
 
 dev_dependencies:
+
+
   flutter_test:
     sdk: flutter
 

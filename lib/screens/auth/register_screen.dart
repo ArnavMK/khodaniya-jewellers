@@ -105,12 +105,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _signUp() async {
+
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();  
+    final name = _nameController.text.trim();
+
     try {
-      await UserRepository.instance.createUser(
-        email: _emailController.text.trim(), 
-        password: _passwordController.text.trim(),
-        name: _nameController.text.trim()
-      );
+      await UserRepository.instance.createUser(email: email, password: password, name: name);
+      await UserRepository.instance.logIn(email: email, password: password, name: name);
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
     }
     catch (error) {
       print("Error creating user: $error");

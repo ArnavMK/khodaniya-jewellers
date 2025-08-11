@@ -1,4 +1,4 @@
-name: user_repository
+name: stock_repository
 description: a repository for managing user data.
 version: 0.0.1
 publish_to: 'none' # this package is not meant to be published
