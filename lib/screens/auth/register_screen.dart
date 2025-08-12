@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khodaniya_jewellers/components/text_input.dart';
-import 'package:khodaniya_jewellers/components/long_button.dart';
+import 'package:khodaniya_jewellers/components/components.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -113,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       await UserRepository.instance.createUser(email: email, password: password, name: name);
       await UserRepository.instance.logIn(email: email, password: password, name: name);
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.catalog, (route) => false);
     }
     catch (error) {
       print("Error creating user: $error");

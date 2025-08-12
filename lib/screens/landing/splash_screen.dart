@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (UserRepository.instance.isLoggedIn()) {
       print("User is logged in");
       Future.delayed(const Duration(seconds: 2), () {
-        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.catalog);
       });
     } 
     else {

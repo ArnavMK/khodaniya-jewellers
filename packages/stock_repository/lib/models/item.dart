@@ -1,13 +1,27 @@
 import '../constants/costants.dart';
 
 class Item {
+  /// unique id of the item
   final String id;
+
+  /// name of the item
   final String name;
+
   final String description;
+
+  /// image url for the item image
   final String image;
+
+  /// total weight of the item with the stones and accesories
   final double grossWeight;
+
+  /// weight of the material
   final double weight;
+
+  // type: necklace, foot wear etc.. 
   final String type;
+
+  /// material: gold or silver
   final String material;
 
   Item({

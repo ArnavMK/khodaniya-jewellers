@@ -13,7 +13,7 @@ class DataFields {
   // item types
   static const String necklace = 'necklace';
   static const String bracelet = 'bracelet';
-  static const String ring = 'ring';
+  static const String ring = 'finger-ring';
   static const String earring = 'earring';
   static const String anklet = 'anklet';
   static const String noseRing = 'noseRing';

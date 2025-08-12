@@ -6,9 +6,7 @@ abstract class StockRepository {
   void initialize();
 }
 
-
 class LocalStockDatabase implements StockRepository {
-
   Iterable<Item> _stock = [];
 
   LocalStockDatabase._privateConstructor();

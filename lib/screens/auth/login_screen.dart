@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khodaniya_jewellers/components/text_input.dart';
-import 'package:khodaniya_jewellers/components/long_button.dart';
+import 'package:khodaniya_jewellers/components/components.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -73,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 LongButton(
                   text: "Sign In", 
                   onTap: _signIn,
-                  backgroundColor: Color(0xFF64A0AD),
+                  backgroundColor: AppColors.primary, 
                 ),
                 const SizedBox(height: 15),
                 LongButton(
@@ -101,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
       name: "Test user name for now",
     ).then((user) {
       print("User logged in: ${user.email}");
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.catalog, (route) => false);
     }).catchError((error) {
       print("Error logging in user: $error");
     });

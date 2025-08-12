@@ -16,14 +16,21 @@ void main() async {
       debugShowCheckedModeBanner: false,
       title: 'Khodaniya Jwellers',
       theme: ThemeData(
-        fontFamily: 'Poppins'
+        fontFamily: 'Poppins',
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+        cardColor: Colors.white,
+        colorScheme: ColorScheme.light(
+          surface: Colors.white,
+          primary: AppColors.primary,
+        ),
       ),
       home: SplashScreen(),
       routes: {
         AppRoutes.splash: (context) => const SplashScreen(),
         AppRoutes.login: (context) => const LoginScreen(),
         AppRoutes.register: (context) => const RegisterScreen(),
-        AppRoutes.home: (context) => const HomeScreen(),
+        // AppRoutes.home: (context) => const HomeScreen(),
+        AppRoutes.catalog: (context) => const CatalogScreen(),
         // AppRoutes.profile: (context) => const ProfileScreen(),
         // AppRoutes.settings: (context) => const SettingsScreen(),
         // AppRoutes.itemDetails: (context) => const ItemDetailsScreen(),
