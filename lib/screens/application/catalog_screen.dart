@@ -55,16 +55,30 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 9/16
-          ),
-          itemCount: LocalStockDatabase.instance.getAllStocks().length,
-          itemBuilder: (context, int i) {
-            return ItemTile(index: i);
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Calculate number of columns based on screen width
+            // Desired tile width: 200px (160px image + 40px padding/margins)
+            // Add spacing between tiles
+            double desiredTileWidth = 200.0;
+            double spacing = 10.0;
+            int crossAxisCount = ((constraints.maxWidth - (2 * 16.0)) / (desiredTileWidth + spacing)).floor();
+            
+            // Ensure at least 2 columns and at most 4 columns
+            crossAxisCount = crossAxisCount.clamp(2, 4);
+            
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: spacing,
+                mainAxisSpacing: 10,
+                childAspectRatio: 9/16
+              ),
+              itemCount: LocalStockDatabase.instance.getAllStocks().length,
+              itemBuilder: (context, int i) {
+                return ItemTile(index: i);
+              },
+            );
           },
         ),
       ),

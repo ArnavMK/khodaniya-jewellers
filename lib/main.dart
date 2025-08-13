@@ -33,7 +33,7 @@ void main() async {
         AppRoutes.catalog: (context) => const CatalogScreen(),
         // AppRoutes.profile: (context) => const ProfileScreen(),
         // AppRoutes.settings: (context) => const SettingsScreen(),
-        // AppRoutes.itemDetails: (context) => const ItemDetailsScreen(),
+        // AppRoutes.itemDetails: (context) => const ItemDetailsScreen(item),
       },
     ),
   );
