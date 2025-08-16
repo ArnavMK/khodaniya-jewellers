@@ -2,13 +2,14 @@ class DataFields {
 
   // item fields
   static const String id = 'id';
-  static const String weight = 'weight';
+  static const String netWeight = 'netWeight';
   static const String grossWeight = 'grossWeight';
   static const String name = 'name';
   static const String description = 'description';
   static const String image = 'image';
   static const String type = 'type';
   static const String material = 'material';
+  static const String purity = 'purity';
 
   // item types
   static const String necklace = 'necklace';

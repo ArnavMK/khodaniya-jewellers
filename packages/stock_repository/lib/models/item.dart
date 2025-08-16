@@ -15,8 +15,11 @@ class Item {
   /// total weight of the item with the stones and accesories
   final double grossWeight;
 
-  /// weight of the material
-  final double weight;
+  /// this is the weight of the total gold or silver in the item
+  final double netWeight;
+
+  /// purity of the item in percentage, for example 22k gold is 91.67% pure
+  final int purity;
 
   // type: necklace, foot wear etc.. 
   final String type;
@@ -29,15 +32,16 @@ class Item {
     required this.name,
     required this.description,
     required this.grossWeight,
-    required this.weight,
     required this.image,
     required this.type, 
     required this.material,
+    required this.netWeight,
+    required this.purity,
   });
 
   @override
   String toString() {
-    return 'Item{id: $id, name: $name, description: $description, grossWeight: $grossWeight, weight: $weight, image: $image, type: $type, material: $material}';
+    return 'Item{id: $id, name: $name, description: $description, grossWeight: $grossWeight, netWeight: $netWeight, purity: $purity, type: $type, material: $material}';
   }
   
   Map<String, dynamic> toJson() {
@@ -46,7 +50,7 @@ class Item {
       DataFields.name: name,
       DataFields.description: description,
       DataFields.grossWeight: grossWeight,
-      DataFields.weight: weight,
+      DataFields.netWeight: netWeight,
     };
   } 
 
@@ -58,7 +62,8 @@ class Item {
       name: json[DataFields.name] as String,
       description: json[DataFields.description] as String,
       grossWeight: (json[DataFields.grossWeight] as num).toDouble(),
-      weight: (json[DataFields.weight] as num).toDouble(),
+      netWeight: (json[DataFields.netWeight] as num).toDouble(),
+      purity: (json[DataFields.purity] as num?)?.toInt() ?? 0,
       type: json[DataFields.type] as String? ?? '',
       material: json[DataFields.material] as String? ?? '',
     );

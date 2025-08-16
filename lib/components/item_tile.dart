@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 import 'package:khodaniya_jewellers/screens/screens.dart';
 import 'package:stock_repository/models/models.dart';
 import 'package:stock_repository/stock_repository.dart';
-import 'package:stock_repository/constants/costants.dart';
 import 'package:khodaniya_jewellers/components/components.dart';
 
 class ItemTile extends StatelessWidget {
@@ -15,21 +15,6 @@ class ItemTile extends StatelessWidget {
     required this.index,
   });
 
-  Color _getMacroColor(Item item) {
-    if (item.material == DataFields.gold) {
-      return AppColors.gold.withAlpha(150);
-    }
-    // if its silver;
-    return AppColors.silver;
-  }
-
-  Color _getTextColor(Item item) {
-    if (item.material == DataFields.gold) {
-      return Colors.brown.withAlpha(150);
-    }
-    // if its silver;
-    return Colors.white; 
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,41 +56,9 @@ class ItemTile extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: _getMacroColor(item),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              item.material + '-piece',
-                              style: TextStyle(
-                                color: _getTextColor(item),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                        ),
+                        MaterialMacro(item: item),
                         const SizedBox(width: 5),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.cyan.withAlpha(50),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              item.type,
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                        )
+                        TypeMacro(item: item),
                       ],
                     ),
                     const SizedBox(height: 5),
@@ -135,13 +88,23 @@ class ItemTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        '${item.grossWeight}g',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      Row(
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.scaleUnbalancedFlip,
+                            color: AppColors.primary,
+                            size: 15,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '${item.netWeight}g',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
