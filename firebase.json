@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+{"flutter":{"platforms":{"android":{"default":{"projectId":"khodaniya-jewellers","appId":"1:189396324064:android:0007493d50ec3c8b288a85","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"khodaniya-jewellers","configurations":{"android":"1:189396324064:android:0007493d50ec3c8b288a85","ios":"1:189396324064:ios:e0615e29c9280aa9288a85"}}}}}}
+=======
+{"flutter":{"platforms":{"android":{"default":{"projectId":"khodaniya-jewellers","appId":"1:189396324064:android:0007493d50ec3c8b288a85","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"khodaniya-jewellers","configurations":{"android":"1:189396324064:android:0007493d50ec3c8b288a85","ios":"1:189396324064:ios:e0615e29c9280aa9288a85","windows":"1:189396324064:web:3ad70a39bcc0ea0b288a85"}}}}}}
+>>>>>>> 0d1a52f (Implemented Favorites Screen and favoriting item logic)
