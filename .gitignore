@@ -43,15 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-<<<<<<< HEAD
 
 # Firebase config files (client SDK)
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 macos/Runner/GoogleService-Info.plist
-<<<<<<< HEAD
-=======
 lib/firebase_options.dart
->>>>>>> ac35f6e (Placeholder register view and firebase user auth complete)
-=======
->>>>>>> 0d1a52f (Implemented Favorites Screen and favoriting item logic)

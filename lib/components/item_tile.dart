@@ -108,15 +108,16 @@ class _ItemTileState extends State<ItemTile> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if (widget.item.isFavorite) {
-                        UserRepository.instance.currentUser?.removeItemFromFavorites(widget.item);
-                        widget.item.isFavorite = false;
-                      }
-                      else {
-                        UserRepository.instance.currentUser?.addItemToFavorites(widget.item);
-                        widget.item.isFavorite = true;
-                      }
-                      
+                      setState(() {
+                        if (widget.item.isFavorite) {
+                          UserRepository.instance.currentUser?.removeItemFromFavorites(widget.item);
+                          widget.item.isFavorite = false;
+                        }
+                        else {
+                          UserRepository.instance.currentUser?.addItemToFavorites(widget.item);
+                          widget.item.isFavorite = true;
+                        }
+                      });                      
                     },
                     child: _getIcon(),
                   )
