@@ -11,12 +11,9 @@ plugins {
 android {
     namespace = "store.jewellery.khodaniya_jewellers"
     compileSdk = flutter.compileSdkVersion
-<<<<<<< HEAD
     ndkVersion = flutter.ndkVersion
     ndkVersion = "27.0.12077973"
-=======
     ndkVersion = "27.0.12077973" 
->>>>>>> 0d1a52f (Implemented Favorites Screen and favoriting item logic)
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -102,6 +102,15 @@ class _ItemTileState extends State<ItemTile> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
+                          const SizedBox(width: 3),
+                          Text(
+                            'net',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 8,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                     ],

@@ -22,7 +22,9 @@ class UserRepository {
       return false;
     }
   }
-
+  
+  /// this method is used to refersh the current AppUser to keep up with the current logged in firebase auth user
+  /// using this the current use that the entire app will use gets refreshed.
   void refreshCurrentAppUser() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {

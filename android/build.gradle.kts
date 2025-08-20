@@ -19,7 +19,4 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 0d1a52f (Implemented Favorites Screen and favoriting item logic)
