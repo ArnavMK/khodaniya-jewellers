@@ -3,4 +3,7 @@ export 'auth/register_screen.dart';
 export 'landing/splash_screen.dart';
 export 'application/catalog_screen.dart';
 export 'application/item_details_screen.dart';
+export 'application/profile_screen.dart';
 export 'application/favorites_screen.dart';
+export 'application/home_screen.dart';
+export 'application/search_screen.dart';

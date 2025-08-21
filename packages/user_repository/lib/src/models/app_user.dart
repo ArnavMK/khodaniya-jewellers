@@ -28,6 +28,7 @@ class AppUser {
   });  
 
   void addItemToFavorites(Item item) {
+    // avoid duplicates by id
     _favorites.add(item);
   }
   
@@ -41,6 +42,10 @@ class AppUser {
 
   Item getFavoriteItemWithIndex(int index) {
     return _favorites[index];
+  }
+
+  bool isFavorite(Item item) {
+    return _favorites.any((i) => i.id == item.id);
   }
   
   static AppUser empty = AppUser(userId: "", name: "", email: "");

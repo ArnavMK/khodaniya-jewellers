@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khodaniya_jewellers/components/item_tile.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
+import 'package:khodaniya_jewellers/components/components.dart';
 import 'package:stock_repository/models/models.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -86,16 +87,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
               itemCount: _getCount(),
               itemBuilder: (context, int i) {
-                Item? item = _getItem(i);
+                final item = _getItem(i);
                 if (item == null) {
-                  return null;
+                  return const SizedBox.shrink();
                 }
-                return ItemTile(item: item);
+                return ItemTile(
+                  item: item,
+                  onFavoriteChanged: () {
+                    if (mounted) setState(() {});
+                  },
+                );
               },
             );
           },
         ),
       ),
+      bottomNavigationBar: TabBarCreator.bottomPinned(context: context, currentTab: Tabs.catalogue),
     );
   }
 

@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khodaniya_jewellers/components/components.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:khodaniya_jewellers/screens/auth/bloc/auth_bloc.dart';
+import 'package:khodaniya_jewellers/screens/auth/bloc/auth_events.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -149,14 +151,14 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      await UserRepository.instance.logIn(
+      // Dispatch login via Bloc instead of calling repository directly
+      context.read<AuthBloc>().add(AuthEventLogin(
+        name: "Test user name for now",
         email: email,
         password: password,
-        name: "Test user name for now",
-      );
-      
-      print("User logged in: $email");
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.catalog, (route) => false);
+      ));
+      // Navigation should be handled by a BlocListener reacting to AuthStateLoggedIn
+      // Keeping exception handling as-is per request
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {

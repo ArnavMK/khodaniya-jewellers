@@ -8,10 +8,12 @@ import 'package:user_repository/user_repository.dart';
 
 class ItemTile extends StatefulWidget {
   final Item item;
+  final VoidCallback? onFavoriteChanged;
 
   const ItemTile({
     super.key,
-    required this.item 
+    required this.item,
+    this.onFavoriteChanged,
   });
 
   @override
@@ -118,15 +120,16 @@ class _ItemTileState extends State<ItemTile> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (widget.item.isFavorite) {
-                          UserRepository.instance.currentUser?.removeItemFromFavorites(widget.item);
-                          widget.item.isFavorite = false;
+                        final user = UserRepository.instance.currentUser;
+                        if (user == null) return;
+                        if (user.isFavorite(widget.item)) {
+                          user.removeItemFromFavorites(widget.item);
+                        } else {
+                          user.addItemToFavorites(widget.item);
                         }
-                        else {
-                          UserRepository.instance.currentUser?.addItemToFavorites(widget.item);
-                          widget.item.isFavorite = true;
-                        }
-                      });                      
+                        // notify parent to refresh if needed
+                        widget.onFavoriteChanged?.call();
+                      });
                     },
                     child: _getIcon(),
                   )
@@ -140,7 +143,9 @@ class _ItemTileState extends State<ItemTile> {
   }
 
   Icon _getIcon() {
-    if (widget.item.isFavorite) {
+    final user = UserRepository.instance.currentUser;
+    final isFav = user?.isFavorite(widget.item) ?? false;
+    if (isFav) {
       return Icon(
         CupertinoIcons.minus_circle_fill,
         size: 20, 

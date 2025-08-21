@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'package:khodaniya_jewellers/components/item_tile.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 import 'package:stock_repository/database/stock_database.dart';
 import 'package:stock_repository/models/models.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:khodaniya_jewellers/components/components.dart';
 
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
@@ -47,8 +47,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.favorites);
+            onPressed: () async {
+              await Navigator.of(context).pushNamed(AppRoutes.favorites);
+              if (mounted) setState(() {});
             },
             icon: Icon(CupertinoIcons.square_favorites_alt),    
           ),
@@ -61,36 +62,36 @@ class _CatalogScreenState extends State<CatalogScreen> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Calculate number of columns based on screen width
-            // Desired tile width: 200px (160px image + 40px padding/margins)
-            // Add spacing between tiles
-            double desiredTileWidth = 200.0;
-            double spacing = 10.0;
-            int crossAxisCount = ((constraints.maxWidth - (2 * 16.0)) / (desiredTileWidth + spacing)).floor();
-            
-            // Ensure at least 2 columns and at most 4 columns
-            crossAxisCount = crossAxisCount.clamp(2, 4);
-            
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: spacing,
-                mainAxisSpacing: 10,
-                childAspectRatio: 9/16
-              ),
-              itemCount: LocalStockDatabase.instance.getAllStocks().length,
-              itemBuilder: (context, int i) {
-                Item item = LocalStockDatabase.instance.getAllStocks().elementAt(i);
-                return ItemTile(item: item);
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                double desiredTileWidth = 200.0;
+                double spacing = 10.0;
+                int crossAxisCount = ((constraints.maxWidth - (2 * 16.0)) / (desiredTileWidth + spacing)).floor();
+                crossAxisCount = crossAxisCount.clamp(2, 4);
+
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: spacing,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 9/16
+                  ),
+                  itemCount: LocalStockDatabase.instance.getAllStocks().length,
+                  itemBuilder: (context, int i) {
+                    Item item = LocalStockDatabase.instance.getAllStocks().elementAt(i);
+                    return ItemTile(item: item);
+                  },
+                );
               },
-            );
-          },
-        ),
+            ),
+          ),
+        ],
       ),
+      bottomNavigationBar: TabBarCreator.bottomPinned(context: context, currentTab: Tabs.catalogue),
     );
   }
 }

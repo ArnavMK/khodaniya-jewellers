@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:khodaniya_jewellers/components/components.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Row(
+          children: [
+            Icon(
+              Icons.home_outlined,
+              size: 30,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Home",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 26,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ],
+        )
+      ),
+      body: const SizedBox.shrink(),
+      bottomNavigationBar: TabBarCreator.bottomPinned(context: context, currentTab: Tabs.home),
+    );
+  }
+}

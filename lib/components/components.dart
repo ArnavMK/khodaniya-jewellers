@@ -5,3 +5,4 @@ export 'text_input.dart';
 export 'type_macro.dart';
 export 'material_macro.dart';
 export 'item_detail_macro.dart';
+export 'floating_tab_bar.dart';
