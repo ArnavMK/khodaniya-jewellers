@@ -5,6 +5,7 @@ import 'package:khodaniya_jewellers/components/components.dart';
 import 'package:khodaniya_jewellers/constants/constants.dart';
 import 'package:khodaniya_jewellers/screens/auth/bloc/auth_bloc.dart';
 import 'package:khodaniya_jewellers/screens/auth/bloc/auth_events.dart';
+import 'package:khodaniya_jewellers/screens/auth/bloc/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,8 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late final TextEditingController _emailController; 
   late final TextEditingController _passwordController; 
-  
-  String? _errorMessage;
 
   @override
   void initState() {
@@ -38,93 +37,135 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 35),
-                Image.asset(
-                  "assets/images/Icon.png",
-                  width: 150,
-                  height: 150,
-                ),
-                const SizedBox(height: 50),
-            
-                Text("Welcome back!", style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                )),
-                const SizedBox(height: 10),
-                Text("To the official app for Khodaniya Jewellers", style: Theme.of(context).textTheme.bodySmall),
-            
-                const SizedBox(height: 10),
-                
-                if (_errorMessage != null) ...[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade50,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.red.shade200),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.warning_amber_rounded,
-                            color: Colors.red.shade600,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              _errorMessage!,
-                              style: TextStyle(
-                                color: Colors.red.shade700,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthStateLoggedIn) {
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.catalog, (route) => false);
+            }
+          },
+          builder: (context, state) {
+            String? errorMessage;
+            if (state is AuthStateLoginFaliure) {
+              final exception = state.exception;
+              if (exception is FirebaseAuthException) {
+                switch (exception.code) {
+                  case 'user-not-found':
+                    errorMessage = "No user found with this email address.";
+                    break;
+                  case 'wrong-password':
+                    errorMessage = "Incorrect password. Please try again.";
+                    break;
+                  case 'invalid-email':
+                    errorMessage = "The email address is not valid. Please enter a valid email.";
+                    break;
+                  case 'user-disabled':
+                    errorMessage = "This account has been disabled. Please contact support.";
+                    break;
+                  case 'too-many-requests':
+                    errorMessage = "Too many failed attempts. Please try again later.";
+                    break;
+                  case 'invalid-credential':
+                    errorMessage = "Wrong credentials. Please try again.";
+                    break;
+                  default:
+                    errorMessage = exception.message ?? "Login failed. Please try again.";
+                }
+              } else {
+                errorMessage = "An unexpected error occurred. Please try again.";
+              }
+            }
+
+            final bool isLoading = state is AuthStateLoading;
+
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 35),
+                    Image.asset(
+                      "assets/images/Icon.png",
+                      width: 150,
+                      height: 150,
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                    const SizedBox(height: 50),
                 
-                MyTextInput(
-                  prefixIcon: Icon(Icons.email_outlined), 
-                  hintString: "Email",
-                  obscureText: false,
-                  controller: _emailController,
+                    Text("Welcome back!", style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    )),
+                    const SizedBox(height: 10),
+                    Text("To the official app for Khodaniya Jewellers", style: Theme.of(context).textTheme.bodySmall),
+                
+                    const SizedBox(height: 10),
+                    
+                    if (errorMessage != null) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.red.shade200),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.warning_amber_rounded,
+                                color: Colors.red.shade600,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  errorMessage,
+                                  style: TextStyle(
+                                    color: Colors.red.shade700,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                    
+                    MyTextInput(
+                      prefixIcon: Icon(Icons.email_outlined), 
+                      hintString: "Email",
+                      obscureText: false,
+                      controller: _emailController,
+                    ),
+                    const SizedBox(height: 10),
+                    MyTextInput(
+                      prefixIcon: Icon(Icons.lock_outlined), 
+                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      hintString: "Password",
+                      obscureText: true,
+                      controller: _passwordController,
+                    ),
+                    const SizedBox(height: 25),
+                    LongButton(
+                      text: "Sign In", 
+                      onTap: isLoading ? null : _signIn,
+                      backgroundColor: AppColors.primary, 
+                    ),
+                    const SizedBox(height: 15),
+                    LongButton(
+                      text: "Create account", 
+                      onTap: _switchToSignUpSCreen,
+                      borderColor: AppColors.primary,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                MyTextInput(
-                  prefixIcon: Icon(Icons.lock_outlined), 
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                  hintString: "Password",
-                  obscureText: true,
-                  controller: _passwordController,
-                ),
-                const SizedBox(height: 25),
-                LongButton(
-                  text: "Sign In", 
-                  onTap: _signIn,
-                  backgroundColor: AppColors.primary, 
-                ),
-                const SizedBox(height: 15),
-                LongButton(
-                  text: "Create account", 
-                  onTap: _switchToSignUpSCreen,
-                  borderColor: AppColors.primary,
-                  backgroundColor: Colors.transparent,
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     ); 
@@ -138,16 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    // Clear any previous error messages
-    setState(() {
-      _errorMessage = null;
-    });
-
     try {
       if (email.isEmpty || password.isEmpty) {
-        setState(() {
-          _errorMessage = "Please fill in all fields.";
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please fill in all fields.")),
+        );
         return;
       }
 
@@ -157,40 +193,11 @@ class _LoginScreenState extends State<LoginScreen> {
         email: email,
         password: password,
       ));
-      // Navigation should be handled by a BlocListener reacting to AuthStateLoggedIn
-      // Keeping exception handling as-is per request
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        setState(() {
-          _errorMessage = "No user found with this email address.";
-        });
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          _errorMessage = "Incorrect password. Please try again.";
-        });
-      } else if (e.code == 'invalid-email') {
-        setState(() {
-          _errorMessage = "The email address is not valid. Please enter a valid email.";
-        });
-      } else if (e.code == 'user-disabled') {
-        setState(() {
-          _errorMessage = "This account has been disabled. Please contact support.";
-        });
-      } else if (e.code == 'too-many-requests') {
-        setState(() {
-          _errorMessage = "Too many failed attempts. Please try again later.";
-        });
-      } else if (e.code == 'invalid-credential') {
-        setState(() {
-          _errorMessage = "Wrong credentials. Please try again.";
-        });
-      }
-      print("AUTHEXCEPTION: ${e.code} - ${e.message}");
     } catch (e) {
       // Handle any other exceptions
-      setState(() {
-        _errorMessage = "An unexpected error occurred: $e";
-      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An unexpected error occurred: $e")),
+      );
     }
   }
 }

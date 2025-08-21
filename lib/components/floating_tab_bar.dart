@@ -142,7 +142,7 @@ class _TabItem extends StatefulWidget {
 class _TabItemState extends State<_TabItem> {
   @override
   Widget build(BuildContext context) {
-    final Color color = widget.active ? Colors.black : Colors.grey;
+    final Color color = widget.active ? AppColors.primary : Colors.grey;
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: widget.onTap,

@@ -37,7 +37,7 @@ class MaterialMacro extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Text(
-          item.material + '-piece',
+          '${item.material}-piece',
           style: TextStyle(
             color: _getTextColor(item),
             fontWeight: FontWeight.bold,
